@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-DEFAULT_AUTH_FILE = Path("~/.googleauth.json")
+DEFAULT_AUTH_FILE = Path("~/.openclaw/credentials/.googleauth.json")
 
 
 @dataclass(frozen=True)
