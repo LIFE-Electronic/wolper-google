@@ -1,6 +1,5 @@
-def main():
-    print("Hello from google!")
+from wolper_google.main import cli
 
 
 if __name__ == "__main__":
-    main()
+    cli()
