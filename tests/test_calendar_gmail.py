@@ -35,9 +35,10 @@ def test_calendar_list_parses_items(monkeypatch, tmp_path) -> None:
         ]
     }
 
-    def fake_get_json(url: str, token: str) -> dict[str, Any]:
+    def fake_get_json(url: str, token: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         assert "calendar" in url
         assert token == "token"
+        assert params is None
         return payload
 
     from wolper_google import http
@@ -56,9 +57,10 @@ def test_gmail_list_parses_items(monkeypatch, tmp_path) -> None:
     auth, _ = _auth(tmp_path)
     payload = {"labels": [{"id": "INBOX", "name": "Inbox"}]}
 
-    def fake_get_json(url: str, token: str) -> dict[str, Any]:
+    def fake_get_json(url: str, token: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         assert "gmail" in url
         assert token == "token"
+        assert params is None
         return payload
 
     from wolper_google import http
@@ -74,7 +76,7 @@ def test_cli_calendar_list(monkeypatch, tmp_path, capsys) -> None:
     _, auth_path = _auth(tmp_path)
     payload = {"items": [{"id": "cal_1", "summary": "Primary"}]}
 
-    def fake_get_json(url: str, token: str) -> dict[str, Any]:
+    def fake_get_json(url: str, token: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         return payload
 
     from wolper_google import http
@@ -93,7 +95,7 @@ def test_cli_gmail_list(monkeypatch, tmp_path, capsys) -> None:
     _, auth_path = _auth(tmp_path)
     payload = {"labels": [{"id": "INBOX", "name": "Inbox"}]}
 
-    def fake_get_json(url: str, token: str) -> dict[str, Any]:
+    def fake_get_json(url: str, token: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         return payload
 
     from wolper_google import http
@@ -112,7 +114,7 @@ def test_cli_gmail_list_auth_after_subcommand(monkeypatch, tmp_path, capsys) -> 
     _, auth_path = _auth(tmp_path)
     payload = {"labels": [{"id": "INBOX", "name": "Inbox"}]}
 
-    def fake_get_json(url: str, token: str) -> dict[str, Any]:
+    def fake_get_json(url: str, token: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         return payload
 
     from wolper_google import http
@@ -131,7 +133,7 @@ def test_cli_calendar_list_raw(monkeypatch, tmp_path, capsys) -> None:
     _, auth_path = _auth(tmp_path)
     payload = {"items": [{"id": "cal_1", "summary": "Primary"}]}
 
-    def fake_get_json(url: str, token: str) -> dict[str, Any]:
+    def fake_get_json(url: str, token: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         return payload
 
     from wolper_google import http
